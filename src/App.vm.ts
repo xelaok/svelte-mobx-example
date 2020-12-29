@@ -1,36 +1,38 @@
-import { observable, computed } from "mobx";
+import { makeAutoObservable, observable, computed, action } from "mobx";
 import { timeFormatter } from "./utils";
 
-class AppVM {
-    @observable
-    startTime: Date;
+const UPDATE_INTERVAL = 250;
 
-    @observable
-    currentTime: Date;
+export class AppVm {
+    startTime: Date = new Date();
+    currentTime: Date = new Date();
 
-    @computed
-    get elapsedSeconds(): number {
+    constructor() {
+        makeAutoObservable(this, {
+            startTime: observable,
+            currentTime: observable,
+            elapsedSeconds: computed,
+            currentTimeString: computed,
+            elapsedSecondsString: computed,
+            updateCurrentTime: action,
+        });
+
+        setInterval(() => this.updateCurrentTime(), UPDATE_INTERVAL);
+    }
+
+    get elapsedSeconds() {
         return Math.round((this.currentTime.getTime() - this.startTime.getTime()) / 1000);
     }
 
-    @computed
-    get formattedCurrentTime(): string {
+    get currentTimeString() {
         return timeFormatter.format(this.currentTime);
     }
 
-    @computed
-    get formattedElapsedSeconds(): string {
+    get elapsedSecondsString() {
         return `${this.elapsedSeconds} ${this.elapsedSeconds === 1 ? "second" : "seconds"}`;
     }
 
-    constructor() {
-        this.startTime = new Date();
-        this.currentTime = this.startTime;
-    }
-
-    load() {
-        setInterval(() => this.currentTime = new Date(), 100);
+    updateCurrentTime() {
+        this.currentTime = new Date();
     }
 }
-
-export { AppVM };

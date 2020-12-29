@@ -3,26 +3,19 @@
 </script>
 
 <script>
+    export let vm;
     const { autorun } = connect();
 
-    export let vm;
-
-    let formattedCurrentTime;
-    let formattedElapsedSeconds;
+    let currentTimeString;
+    let elapsedSecondsString;
 
     $: autorun(() => {
-        formattedCurrentTime = vm.formattedCurrentTime;
-        formattedElapsedSeconds = vm.formattedElapsedSeconds;
+        currentTimeString = vm.currentTimeString;
+        elapsedSecondsString = vm.elapsedSecondsString;
     });
 </script>
 
 <div>
-    <h1>The time is {formattedCurrentTime}</h1>
-    <div>This page has been open for {formattedElapsedSeconds}</div>
+    <h1>The time is {currentTimeString}</h1>
+    <div>This page has been open for {elapsedSecondsString}</div>
 </div>
-
-<style>
-    :global(body) {
-        padding: 4em;
-    }
-</style>

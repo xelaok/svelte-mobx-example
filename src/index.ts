@@ -1,10 +1,7 @@
 import App from "./App.svelte";
-import { AppVM } from "./App.vm";
-
-const appVM = new AppVM();
-appVM.load();
+import { AppVm } from "./App.vm";
 
 new App({
-	props: { vm: appVM },
+	props: { vm: new AppVm() },
     target: document.body,
 });
