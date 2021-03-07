@@ -9,9 +9,10 @@
     let currentTimeString;
     let elapsedSecondsString;
 
-    $: autorun(() => {
+    autorun(() => {
         currentTimeString = vm.currentTimeString;
         elapsedSecondsString = vm.elapsedSecondsString;
+        console.log("AUTORUN executed for elapsed time: "+ elapsedSecondsString);
     });
 </script>
 

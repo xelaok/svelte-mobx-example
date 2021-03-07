@@ -1,7 +1,7 @@
 import { makeAutoObservable, observable, computed, action } from "mobx";
 import { timeFormatter } from "./utils";
 
-const UPDATE_INTERVAL = 250;
+const UPDATE_INTERVAL = 1000;
 
 export class AppVm {
     startTime: Date = new Date();
